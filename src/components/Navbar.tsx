@@ -6,12 +6,16 @@ const Navbar = () => {
             {/*logo*/}
             <Link to='/' className='navbar-brand'>Shopsy</Link>
             {/*menu*/}
-            <div>
+            <div className='collapse navbar-collapse'>
+            <div className='navbar-nav'>
                 <Link className='nav-link' to='/'>Home</Link>
                 <Link className='nav-link' to='/cart'>Cart</Link>
                 <Link className='nav-link' to='/checkout'>Checkout</Link>
                 <Link className='nav-link' to='/products/1'>Product</Link>
             </div>
+
+            </div>
+            
             {/*Cart Icon */}
             <div className ='sh-cart-icon'>
                 <div className='navbar-nav'>
