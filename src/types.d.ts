@@ -19,3 +19,9 @@ type Product = {
     image: string;
 
 }
+//define state type
+type InitialStateType={
+    products: Product[];
+    cart: Product[];
+    getProducts: () => void;
+}
