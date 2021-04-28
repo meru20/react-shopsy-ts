@@ -1,4 +1,5 @@
 import React, {createContext, useReducer, useState} from 'react';
+import instance from '../api/apiConfig';
 
 
 const intialState = {
@@ -42,11 +43,14 @@ export const GlobalProvider: React.FC = ({children}) => {
 
     const getProducts = async () => {
         try{
-            let prods= await ( 
-                await fetch ('https://fakestoreapi.com/products')).
-                json();
+            // let prods= await ( 
+            //     await fetch ('https://fakestoreapi.com/products')).
+            //     json();
+            // let prods = await instance.get('/products');---alternate
+            let {data} = await instance.get('/products');
+           
 
-                dispatch({type:'GET_PRODUCTS', payload:prods})
+                dispatch({type:'GET_PRODUCTS', payload:data})
           
         }
         catch(e) {
