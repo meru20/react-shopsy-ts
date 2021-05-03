@@ -1,5 +1,8 @@
 import {useEffect, useContext} from 'react';
 import {GlobalContext} from '../context/GlobalContext';
+import ProductCard from '../components/ProductCard';
+import '../App.css';
+
 const HomePage = () => {
     const { getProducts, products} = useContext(GlobalContext)
 
@@ -33,17 +36,19 @@ const HomePage = () => {
                 </div>
             </div>
             <div className='row'>
-                <ul className='list-group'>
+               
                     {products.map((product, index) => {
                         return(
-                            <li className='list-group-item' key= {index}>
-                                {product.title}
-                            </li>
+                            <div className= 'col-sm-12 col-md-3 mb-3' key={index}>
+                                <ProductCard product={product}/>
+                      
+
+                            </div>
+                            
                         )
 
                     })}
-                    
-                </ul>
+              
             </div>
         </div>
     )
