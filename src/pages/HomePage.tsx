@@ -1,5 +1,7 @@
 import {useEffect, useContext} from 'react';
 import {GlobalContext} from '../context/GlobalContext';
+import {Link} from 'react-router-dom';
+import '../App.css';
 const HomePage = () => {
     const { getProducts, products} = useContext(GlobalContext)
 
@@ -33,17 +35,43 @@ const HomePage = () => {
                 </div>
             </div>
             <div className='row'>
-                <ul className='list-group'>
+               
                     {products.map((product, index) => {
                         return(
-                            <li className='list-group-item' key= {index}>
-                                {product.title}
-                            </li>
+                            <div className= 'col-sm-12 col-md-3 mb-3' key={index}>
+                                <div className='card h-100'>
+                                    {/* image top*/}
+                                    <div className='sh-card-img'>
+                                        <div className='sh-bg-img' style = {{ backgroundImage: `url(${product.image})`}}>
+                                            </div>
+                                    </div>
+                                      {/* card body */}
+                                      <div className='card-body'>
+                                          <h5 className='card-title'>
+                                              <Link to={`/products/${product.id}`}>{product.title}</Link></h5>
+                                          <div className='d-flex justify-content-between align-items-center'>
+                                          <strong>${product.price}</strong> 
+                                          <span className='badge badge-warning'>
+                                              {product.category}
+                                          </span>
+
+                                          </div>
+                                          
+                                      </div>
+                                        {/* add to cart button */}
+                                        <div className='card-footer'>
+                                            <div className='btn btn-block btn-primary'>
+                                                Add To Cart 
+                                                </div>
+                                        </div>
+                                 </div>
+
+                            </div>
+                            
                         )
 
                     })}
-                    
-                </ul>
+              
             </div>
         </div>
     )

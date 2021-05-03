@@ -18,7 +18,7 @@ const intialState = {
 - will return our updated state
 */
 const appReducer = (state: any ,action: any) => {
-    debugger;
+    // debugger;
     switch(action.type) {
         case 'GET_PRODUCTS':
             return {...state, products: action.payload};
