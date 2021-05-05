@@ -6,7 +6,9 @@ const intialState = {
     
     products: [],
     cart: [],
-    getProducts: () => {}
+    product: undefined,
+    getProducts: () => {},
+    getSingleProduct: () => {}
 };
 
 // create our global reducer
@@ -16,12 +18,18 @@ const intialState = {
 - will recieve an action declaration
 - will look to update our state based on the desired action
 - will return our updated state
+-oour reducer takes two parameters.
+  - the first is our initialstate so taht we can update it accordingly
+  -
+  -passed in to dispatch({type,payload})
 */
 const appReducer = (state: any ,action: any) => {
     // debugger;
     switch(action.type) {
         case 'GET_PRODUCTS':
             return {...state, products: action.payload};
+        case 'GET_SINGLE_PRODUCT':
+            return {...state, product: action.payload};    
         default:
             return [...state];
     }
@@ -40,7 +48,7 @@ export const GlobalProvider: React.FC = ({children}) => {
    
     
   
-
+//Actions = methods that run tasks for our app
     const getProducts = async () => {
         try{
             // let prods= await ( 
@@ -57,8 +65,20 @@ export const GlobalProvider: React.FC = ({children}) => {
             console.log(e);
         }
     }
+    const getSingleProduct = async (productId: number) => {
+        try {
+            let {data} = await instance.get (`/products/${productId}`)
+            console.log('response', data)
+
+            dispatch({type:'GET_SINGLE_PRODUCT', payload:data})
+
+        }
+        catch (e){
+            console.log(e)
+        }
+    }
     return (
-        <GlobalContext.Provider value={{ cart:state.cart, products: state.products,  getProducts}}>
+        <GlobalContext.Provider value={{ cart:state.cart, product:state.product, products: state.products,getProducts, getSingleProduct}}>
             {children} {/**<AppRouter/> */}
 
         </GlobalContext.Provider>
