@@ -32,10 +32,10 @@ const appReducer = (state: any ,action: any) => {
         case 'GET_SINGLE_PRODUCT':
             return {...state, product: action.payload}; 
         case 'ADD_TO_CART':
-            let _cart = state.cart;
-            _cart.push(action.payload);
+            // let _cart = state.cart;
+            // _cart.push(action.payload);
 
-            return {...state, cart: _cart}       
+            return {...state, cart:[...state.cart, action.payload]}       
         default:
             return [...state];
     }

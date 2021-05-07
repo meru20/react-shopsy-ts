@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link,useHistory} from 'react-router-dom';
+import {GlobalContext} from '../context/GlobalContext';
 
 
 
@@ -7,6 +8,7 @@ interface CardProps  {
     product: Product;
 }
 const ProductCard:React.FC<CardProps> = ({product}) => {
+    const {addToCart}= useContext(GlobalContext);
     const history = useHistory();
     return (
         <div className='card h-100 product-card-hover d-flex flex-column justify-content-around'>
@@ -34,7 +36,7 @@ const ProductCard:React.FC<CardProps> = ({product}) => {
        
             {/* add to cart button */}
             <div className='card-footer'>
-                <div className='btn btn-block btn-primary'>
+                <div className='btn btn-block btn-primary' onClick={()=>addToCart(product)}>
                     Add To Cart 
                     </div>
             </div>

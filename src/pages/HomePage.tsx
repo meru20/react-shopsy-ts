@@ -40,7 +40,7 @@ const HomePage = () => {
                     {products.map((product, index) => {
                         return(
                             <div className= 'col-sm-12 col-md-3 mb-3' key={index}>
-                                <ProductCard product={product}/>
+                                <ProductCard product={product} />
                       
 
                             </div>
