@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {GlobalContext} from '../context/GlobalContext';
 
 const Navbar = () => {
+    const { cart}= useContext(GlobalContext)
    
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,7 +23,7 @@ const Navbar = () => {
             {/*Cart Icon */}
             <div className ='sh-cart-icon'>
                 <div className='navbar-nav'>
-                <Link to='/cart' className='nav-link'>Cart</Link>
+                <Link to='/cart' className='nav-link'>Cart ({cart.length})</Link>
                 </div>
                 </div> 
         </nav>

@@ -26,4 +26,6 @@ type InitialStateType={
     product: Product | undefined;
     getProducts: () => void;
     getSingleProduct: (productId:number) => void ;
+    addToCart:(product: Product) =>  void;
+    is_loading: boolean;
 }
