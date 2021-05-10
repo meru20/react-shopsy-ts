@@ -31,7 +31,7 @@ const appReducer = (state: any ,action: any) => {
         case 'GET_PRODUCTS':
             return {...state, products: action.payload};
         case 'GET_SINGLE_PRODUCT':
-            return {...state, product: action.payload}; 
+            return {...state, product: action.payload,is_loading:false}; 
         case 'ADD_TO_CART':
             // let _cart = state.cart;
             // _cart.push(action.payload);
@@ -59,6 +59,7 @@ export const GlobalProvider: React.FC = ({children}) => {
   
 //Actions = methods that run tasks for our app
     const getProducts = async () => {
+        dispatch ({type:'SET_LOADING', payload: true})
         try{
             // let prods= await ( 
             //     await fetch ('https://fakestoreapi.com/products')).
