@@ -9,7 +9,8 @@ const intialState = {
     product: undefined,
     getProducts: () => {},
     getSingleProduct: () => {},
-    addToCart: () =>{}
+    addToCart: () =>{},
+    is_loading: false,
 };
 
 // create our global reducer
@@ -34,8 +35,10 @@ const appReducer = (state: any ,action: any) => {
         case 'ADD_TO_CART':
             // let _cart = state.cart;
             // _cart.push(action.payload);
+        case 'SET_LOADING':
+            return { ...state, is_loading: action.payload };
 
-            return {...state, cart:[...state.cart, action.payload]}       
+                 
         default:
             return [...state];
     }
@@ -95,6 +98,7 @@ export const GlobalProvider: React.FC = ({children}) => {
             getProducts, 
             getSingleProduct,
             addToCart,
+            is_loading: state.is_loading,
             }}>
             {children} {/**<AppRouter/> */}
 
