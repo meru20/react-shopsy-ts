@@ -10,7 +10,7 @@ const intialState = {
     getProducts: () => {},
     getSingleProduct: () => {},
     addToCart: () =>{},
-    is_loading: false,
+     is_loading: false,
 };
 
 // create our global reducer
@@ -29,16 +29,45 @@ const appReducer = (state: any ,action: any) => {
     // debugger;
     switch(action.type) {
         case 'GET_PRODUCTS':
-            return {...state, products: action.payload};
+            return {...state, products: action.payload,is_loading: false};
         case 'GET_SINGLE_PRODUCT':
-            return {...state, product: action.payload}; 
+            return {...state, product: action.payload,is_loading: false}; 
         case 'ADD_TO_CART':
-            // let _cart = state.cart;
-            // _cart.push(action.payload);
+            const addedProduct = action.payload;
+            const _cartItem = state.cart.find(
+              (c: CartItem, i: number) => c.product === addedProduct
+            );
+            if (_cartItem) {
+              // 1. update the quantity
+      
+              // 2. replace the existing version of that cartItem with updated cartItem
+              // 3. Then we return the state
+              // _cartItem.quantity++; // example of updating cartItem directly from state
+      
+              // creating a new cart array with a map function
+              // the map function is checking for the addedCartItem,
+              // if it matches an item inside the cart array, update that item
+              // else return the cartItem back to the array
+              const updatedCart = state.cart.map((cartItem: CartItem) =>
+                cartItem.product === addedProduct
+                  ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                  : cartItem
+              );
+      
+              return { ...state, cart: updatedCart };
+            } else {
+              // create a new cartItem
+              const cartItem = {
+                id: Math.floor(Math.random() * 100),
+                quantity: 1,
+                product: action.payload,
+              };
+              // add the new cartItem to our cart state
+      
+              return { ...state, cart: [...state.cart, cartItem] };
+            }  
         case 'SET_LOADING':
-            return { ...state, is_loading: action.payload };
-
-                 
+            return { ...state, is_loading: action.payload };        
         default:
             return [...state];
     }
@@ -59,6 +88,7 @@ export const GlobalProvider: React.FC = ({children}) => {
   
 //Actions = methods that run tasks for our app
     const getProducts = async () => {
+        dispatch({ type: 'SET_LOADING', payload: true });
         try{
             // let prods= await ( 
             //     await fetch ('https://fakestoreapi.com/products')).
@@ -75,6 +105,7 @@ export const GlobalProvider: React.FC = ({children}) => {
         }
     }
     const getSingleProduct = async (productId: number) => {
+        dispatch({ type: 'SET_LOADING', payload: true });
         try {
             let {data} = await instance.get (`/products/${productId}`)
             console.log('response', data)
@@ -95,10 +126,10 @@ export const GlobalProvider: React.FC = ({children}) => {
             cart:state.cart, 
             product:state.product, 
             products: state.products,
+            is_loading: state.is_loading,
             getProducts, 
             getSingleProduct,
             addToCart,
-            is_loading: state.is_loading,
             }}>
             {children} {/**<AppRouter/> */}
 
